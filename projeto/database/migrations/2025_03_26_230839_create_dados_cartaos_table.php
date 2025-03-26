@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('numero');
             $table->date('data_validade');
             $table->int('cvv');
+            $table->unsignedBigInteger('cliente_id');
+            $table->foreign('cliente_id')->references('id')->on('cliente')->onDelete('restrict');
         });
     }
 
