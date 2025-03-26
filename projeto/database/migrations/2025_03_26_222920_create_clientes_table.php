@@ -16,7 +16,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->boolean('status_atividade');
-            $table->foreignId('pessoa_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('pessoa_id');
+            $table->foreign('pessoa_id')->references('id')->on('pessoa')->onDelete('restrict');
         });
     }
 
