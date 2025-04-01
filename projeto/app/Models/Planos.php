@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Matricula extends Model
+class Planos extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'id',
-        'data_inicial',
-        'data_final',
-        'status',
-        'cliente_id',
-        'plano_id'
+        'duracao',
+        'preco'
     ];
 }

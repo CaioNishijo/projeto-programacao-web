@@ -20,6 +20,8 @@ return new class extends Migration
             $table->boolean("status");
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('cliente')->onDelete('restrict');
+            $table->unsignedBigInteger('plano_id');
+            $table->foreign('plano_id')->references('id')->on('plano')->onDelete('restrict');
         });
     }
 
