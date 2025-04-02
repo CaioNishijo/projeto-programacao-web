@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->dateTime("data_passagem");
             $table->unsignedBigInteger('cliente_id');
-            $table->foreign('cliente_id')->references('id')->on('cliente')->onDelete('restrict');
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('restrict');
         });
     }
 

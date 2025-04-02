@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('altura_cliente');
             $table->float('peso_cliente');
             $table->unsignedBigInteger('cliente_id');
-            $table->foreign('cliente_id')->references('id')->on('cliente')->onDelete('restrict');
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('restrict');
         });
     }
 

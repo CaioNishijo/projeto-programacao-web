@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->float('imc');
             $table->unsignedBigInteger('avaliacao_fisica_id');
-            $table->foreign('avaliacao_fisica_id')->references('id')->on('avaliacao_fisica')->onDelete('restrict');
+            $table->foreign('avaliacao_fisica_id')->references('id')->on('avaliacao_fisicas')->onDelete('restrict');
         });
     }
 
