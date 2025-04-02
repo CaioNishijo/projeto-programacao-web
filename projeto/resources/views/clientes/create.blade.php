@@ -9,7 +9,7 @@
   <body class="container">
     <h1>Novo Cliente</h1>
     
-    <form method="post" action="/produtos">
+    <form method="post" action="/clientes">
         @CSRF
         
         <form method="post">
@@ -54,9 +54,7 @@
                         </div>
                     
                     <button type="submit" class="btn btn-primary">Enviar</button>
-                </form>
-        <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
+        </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
