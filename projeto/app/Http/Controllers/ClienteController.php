@@ -56,7 +56,8 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cliente = Cliente::with('pessoa')->findOrFail($id);
+        return view('clientes.show', compact('cliente'));
     }
 
     /**
@@ -64,7 +65,8 @@ class ClienteController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $cliente = Cliente::with('pessoa')->findOrFail($id);
+        return view('clientes.show', compact('cliente'));
     }
 
     /**
@@ -72,7 +74,7 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     /**
