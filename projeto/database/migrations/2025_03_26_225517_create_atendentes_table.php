@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unsignedBigInteger('pessoa_id');
-            $table->foreign('pessoa_id')->references('id')->on('pessoa')->onDelete('restrict');
+            $table->foreign('pessoa_id')->references('id')->on('pessoas')->onDelete('restrict');
         });
     }
 
