@@ -10,10 +10,14 @@ class DadosCartao extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'numero',
         'data_validade',
         'cvv',
         'cliente_id'
     ];
+
+    public function cliente() 
+    {
+        return $this->belongsTo(Cliente::class);
+    }
 }

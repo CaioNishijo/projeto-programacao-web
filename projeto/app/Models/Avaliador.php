@@ -10,7 +10,11 @@ class Avaliador extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'pessoa_id'
     ];
+
+    public function pessoa() 
+    {
+        return $this->belongsTo(Pessoa::class);
+    }
 }

@@ -10,7 +10,6 @@ class Planos extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'duracao',
         'preco'
     ];

@@ -16,7 +16,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-
+        $clientes = Cliente::with('pessoa')->get();
+        return view('clientes.index', compact('clientes'));
     }
 
     /**
@@ -55,7 +56,8 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-
+        $cliente = Cliente::with('pessoa')->findOrFail($id);
+        return view("clientes.show", compact('cliente'));
     }
 
     /**
@@ -63,7 +65,8 @@ class ClienteController extends Controller
      */
     public function edit(string $id)
     {
-
+        $cliente = Cliente::with('pessoa')->findOrFail($id);
+        return view("clientes.edit", compact('cliente'));
     }
 
     /**
@@ -71,7 +74,37 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+        try {
+            $cliente = Cliente::with('pessoa')->findOrFail($id);
+            
+            $cliente->update([
+                'status_atividade' => $request->status_atividade ?? false,
+            ]);
+            
+            $cliente->pessoa->update([
+                'nome' => $request->nome,
+                'sobrenome' => $request->sobrenome,
+                'genero' => $request->genero,
+                'cpf' => $request->cpf,
+                'data_nascimento' => $request->data_nascimento,
+                'endereco' => $request->endereco,
+                'numero_celular' => $request->numero_celular,
+                'email' => $request->email,
+            ]);
+            
+            return redirect()->route('clientes.index')
+                ->with('sucesso', 'Cliente alterado com sucesso!');
+                
+        } catch (Exception $e) {
+            Log::error("Erro ao editar cliente: ". $e->getMessage(), [
+                'stack' => $e->getTraceAsString(),
+                'cliente_id' => $id,
+                'request' => $request->all()
+            ]);
+            
+            return redirect()->route('clientes.index')
+                ->with('erro', 'Erro ao editar cliente!');
+        }
     }
 
     /**
@@ -79,6 +112,18 @@ class ClienteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $cliente = Cliente::with('pessoa')->findOrFail($id);
+            $cliente->delete();
+            return redirect()->route('clientes.index')
+                ->with('sucesso', 'Cliente excluído com sucesso!');
+        } catch (Exception $e){
+            Log::error("Erro ao excluir o cliente: ". $e->getMessage(), [
+                'stack' => $e->getTraceAsString(),
+                'cliente_id' => $id
+            ]);
+            return redirect()->route('clientes.index')
+                ->with('erro', 'Erro ao excluir!');
+        }
     }
 }

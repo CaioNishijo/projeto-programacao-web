@@ -10,8 +10,12 @@ class ControleAcesso extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'data_passagem',
         'cliente_id'
     ];
+
+    public function cliente() 
+    {
+        return $this->belongsTo(Cliente::class);
+    }
 }

@@ -10,8 +10,12 @@ class Cliente extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'status_atividade',
         'pessoa_id'
     ];
+
+    public function pessoa() 
+    {
+        return $this->belongsTo(Pessoa::class);
+    }
 }
