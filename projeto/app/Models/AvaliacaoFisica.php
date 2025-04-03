@@ -10,9 +10,13 @@ class AvaliacaoFisica extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'altura_cliente',
         'peso_cliente',
         'cliente_id'
     ];
+
+    public function cliente() 
+    {
+        return $this->belongsTo(Cliente::class);
+    }
 }

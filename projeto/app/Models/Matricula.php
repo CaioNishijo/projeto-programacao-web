@@ -10,11 +10,20 @@ class Matricula extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'data_inicial',
         'data_final',
         'status',
         'cliente_id',
         'plano_id'
     ];
+
+    public function cliente() 
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function plano() 
+    {
+        return $this->belongsTo(Planos::class);
+    }
 }

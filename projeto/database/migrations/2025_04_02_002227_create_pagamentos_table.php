@@ -17,6 +17,8 @@ return new class extends Migration
 
             $table->float('valor');
             $table->dateTime('data_pagamento');
+            $table->unsignedBigInteger('cliente_id');
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('restrict');
         });
     }
 

@@ -10,8 +10,14 @@ class Pagamento extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'valor',
-        'data_pagamento'
+        'data_pagamento',
+        'cliente_id'
     ];
+
+    public function cliente() 
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
 }
