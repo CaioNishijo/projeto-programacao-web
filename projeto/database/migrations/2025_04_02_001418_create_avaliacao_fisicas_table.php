@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('altura_cliente');
             $table->float('peso_cliente');
             $table->dateTime('data_marcada');
-            $table->boolean('foi_realizada')->default('false');
+            $table->boolean('foi_realizada')->default(0);
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('restrict');
         });
