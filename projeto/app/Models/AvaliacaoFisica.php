@@ -12,6 +12,8 @@ class AvaliacaoFisica extends Model
     protected $fillable = [
         'altura_cliente',
         'peso_cliente',
+        'data_marcada',
+        'foi_realizada',
         'cliente_id'
     ];
 
