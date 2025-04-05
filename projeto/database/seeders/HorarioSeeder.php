@@ -13,12 +13,10 @@ class HorarioSeeder extends Seeder
      */
     public function run(): void
     {
-        Horario::insert([
-            ['horario' => '08:00:00'],
-            ['horario' => '09:00:00'],
-            ['horario' => '10:00:00'],
-            ['horario' => '11:00:00'],
-            ['horario' => '12:00:00'],
-        ]);
+        Horario::create(['horario' => '08:00']);
+        Horario::create(['horario' => '09:00']);
+        Horario::create(['horario' => '10:00']);
+        Horario::create(['horario' => '11:00']);
+        Horario::create(['horario' => '12:00']);
     }
 }
