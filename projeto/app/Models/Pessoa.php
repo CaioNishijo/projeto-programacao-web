@@ -19,4 +19,5 @@ class Pessoa extends Model
         'numero_celular',
         'email'
     ];
+    
 }
