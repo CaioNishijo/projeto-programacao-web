@@ -17,7 +17,15 @@ class AvaliacaoFisicaController extends Controller
      */
     public function index()
     {
-        //
+        $avaliacoes = AvaliacaoFisica::with([
+            'cliente.pessoa', 
+            'avaliador.pessoa',
+            'horario'
+        ])
+        ->orderBy('data_marcada', 'desc')
+        ->get();
+
+        return view('avaliacaofisica.index', compact('avaliacoes'));
     }
 
     /**
@@ -26,9 +34,8 @@ class AvaliacaoFisicaController extends Controller
     public function create()
     {
         $clientes = Cliente::with('pessoa')->get();
-        $avaliadores = Avaliador::with('pessoa')->get();
-        $horarios = Horario::with('pessoa')->get();
-        return view('avaliacaofisica.create', compact('clientes', 'avaliadores', 'horarios'));
+        $horarios = Horario::with('avaliador.pessoa')->get();
+        return view('avaliacaofisica.create', compact('clientes', 'horarios'));
     }
 
     /**
@@ -37,7 +44,14 @@ class AvaliacaoFisicaController extends Controller
     public function store(Request $request)
     {
         try{
-            AvaliacaoFisica::create($request->all());
+            $horario = Horario::findOrFail($request->horario_id);
+
+            AvaliacaoFisica::create([
+                'data_marcada' => $request->input('data_marcada'),
+                'cliente_id' => $request->input('cliente_id'),
+                'horario_id' => $request->input('horario_id'),
+                'avaliador_id' => $horario->avaliador_id
+            ]);
             return redirect()->route('avaliacaofisica.index')
                 ->with('sucesso', 'Avaliação física agendada com sucesso!');
         } catch (Exception $e){
@@ -55,7 +69,13 @@ class AvaliacaoFisicaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $avaliacao = AvaliacaoFisica::with([
+            'cliente.pessoa', 
+            'avaliador.pessoa',
+            'horario'
+        ])->findOrFail($id);
+    
+        return view('avaliacaofisica.show', compact('avaliacao'));
     }
 
     /**
@@ -63,7 +83,16 @@ class AvaliacaoFisicaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $avaliacao = AvaliacaoFisica::with([
+            'cliente.pessoa', 
+            'avaliador.pessoa',
+            'horario'
+        ])->findOrFail($id);
+        
+        $clientes = Cliente::with('pessoa')->get();
+        $horarios = Horario::with('avaliador.pessoa')->get();
+        
+        return view('avaliacaofisica.edit', compact('avaliacao', 'clientes', 'horarios'));
     }
 
     /**
@@ -71,7 +100,33 @@ class AvaliacaoFisicaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $avaliacao = AvaliacaoFisica::findOrFail($id);
+            $horario = Horario::findOrFail($request->horario_id);
+            
+            $avaliacao->update([
+                'altura_cliente' => $request->altura_cliente,
+                'peso_cliente'  => $request->peso_cliente,
+                'data_marcada'  => $request->data_marcada,
+                'foi_realizada' => 1,
+                'cliente_id' => $request->cliente_id,
+                'horario_id' => $request->horario_id,
+                'avaliador_id' => $horario->avaliador_id
+            ]);
+
+            return redirect()->route('avaliacaofisica.index')
+                ->with('sucesso', 'Avaliação alterada com sucesso!');
+                
+        } catch (Exception $e) {
+            Log::error("Erro ao editar avaliação: ". $e->getMessage(), [
+                'stack' => $e->getTraceAsString(),
+                'avaliacao_id' => $id,
+                'request' => $request->all()
+            ]);
+            
+            return redirect()->route('avaliacaofisica.index')
+                ->with('erro', 'Erro ao editar cliente!');
+        }
     }
 
     /**
@@ -79,6 +134,22 @@ class AvaliacaoFisicaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $avaliacao = AvaliacaoFisica::with([
+                'cliente.pessoa', 
+                'avaliador.pessoa',
+                'horario'
+            ])->findOrFail($id);
+            $avaliacao->delete();
+            return redirect()->route('avaliacaofisica.index')
+                ->with('sucesso', 'Agendamento excluído com sucesso!');
+        } catch (Exception $e){
+            Log::error("Erro ao excluir o agendamento: ". $e->getMessage(), [
+                'stack' => $e->getTraceAsString(),
+                'avaliacao_id' => $id
+            ]);
+            return redirect()->route('avaliacaofisica.index')
+                ->with('erro', 'Erro ao excluir!');
+        }
     }
 }
