@@ -12,4 +12,9 @@ class Horario extends Model
     protected $fillable = [
         'horario'
     ];
+
+    public function avaliador() 
+    {
+        return $this->belongsTo(Avaliador::class);
+    }
 }

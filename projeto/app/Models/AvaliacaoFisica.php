@@ -14,11 +14,23 @@ class AvaliacaoFisica extends Model
         'peso_cliente',
         'data_marcada',
         'foi_realizada',
-        'cliente_id'
+        'cliente_id',
+        'horario_id',
+        'avaliador_id'
     ];
 
     public function cliente() 
     {
         return $this->belongsTo(Cliente::class);
+    }
+
+    public function avaliador() 
+    {
+        return $this->belongsTo(Avaliador::class);
+    }
+
+    public function horario() 
+    {
+        return $this->belongsTo(Horario::class);
     }
 }

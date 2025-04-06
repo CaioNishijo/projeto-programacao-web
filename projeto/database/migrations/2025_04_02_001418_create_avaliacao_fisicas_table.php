@@ -19,8 +19,13 @@ return new class extends Migration
             $table->float('peso_cliente');
             $table->dateTime('data_marcada');
             $table->boolean('foi_realizada')->default(0);
+            $table->time('horario');
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('restrict');
+            $table->unsignedBigInteger('avaliador_id');
+            $table->foreign('avaliador_id')->references('id')->on('avaliadors')->onDelete('restrict');
+            $table->unsignedBigInteger('horario_id');
+            $table->foreign('horario_id')->references('id')->on('horarios')->onDelete('restrict');
         });
     }
 
