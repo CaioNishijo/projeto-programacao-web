@@ -6,6 +6,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\InstrutorController;
 use App\Http\Controllers\PlanoController;
 use App\Http\Controllers\MatriculaController;
+use App\Http\Controllers\ResultadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,6 @@ Route::resource('planos', PlanoController::class);
 Route::resource('matriculas', MatriculaController::class);
 
 Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'formPagamento'])->name('matriculas.pagar');
+
+Route::resource("avaliacaofisica", AvaliacaoFisicaController::class);
+Route::resource("resultados", ResultadoController::class);
