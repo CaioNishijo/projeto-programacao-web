@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Cliente;
+use App\Models\Planos;
+
 
 class Matricula extends Model
 {
@@ -12,9 +15,11 @@ class Matricula extends Model
     protected $fillable = [
         'data_inicial',
         'data_final',
-        'status',
+        'ativa',
         'cliente_id',
-        'plano_id'
+        'plano_id',
+        'data_pagamento',
+        'status_pagamento',
     ];
 
     public function cliente() 
