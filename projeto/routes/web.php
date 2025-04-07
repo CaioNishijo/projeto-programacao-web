@@ -3,6 +3,9 @@
 use App\Http\Controllers\AvaliacaoFisicaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\InstrutorController;
+use App\Http\Controllers\PlanoController;
+use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\ResultadoController;
 
 /*
@@ -21,5 +24,15 @@ Route::get('/', function () {
 });
 
 Route::resource("clientes", ClienteController::class);
+
+Route::resource('instrutores', InstrutorController::class);
+
+Route::resource('planos', PlanoController::class);
+
+Route::resource('matriculas', MatriculaController::class);
+
+Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'formPagamento'])->name('matriculas.pagar');
+
+Route::post('/matriculas/{id}/pagar', [MatriculaController::class, 'efetuarPagamento'])->name('matriculas.efetuarPagamento');
 Route::resource("avaliacaofisica", AvaliacaoFisicaController::class);
 Route::resource("resultados", ResultadoController::class);
