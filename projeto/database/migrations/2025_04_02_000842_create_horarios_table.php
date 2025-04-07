@@ -16,6 +16,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->time('horario');
+            $table->unsignedBigInteger('avaliador_id');
+            $table->foreign('avaliador_id')->references('id')->on('avaliadors')->onDelete('restrict');
         });
     }
 
