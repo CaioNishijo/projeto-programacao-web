@@ -37,24 +37,20 @@ class ResultadoController extends Controller
      */
     public function show(string $id)
     {
-        $avaliacao = AvaliacaoFisica::with('resultado')->findOrFail($id);
-        
-        if (!$avaliacao->resultado) {
-            // $imc = $avaliacao->;
-            
-            $resultado = new Resultado([
-                'imc' => $imc,
-                'classificacao' => $this->classificarIMC($imc)
-            ]);
-            
-            $avaliacao->resultado()->save($resultado);
-            
-            // Recarrega o relacionamento
-            $avaliacao->load('resultado');
-        }
-        
-        // Redireciona para o show do resultado
-        return redirect()->route('resultados.show', $avaliacao->resultado->id);
+        $avaliacao = AvaliacaoFisica::with([
+            'cliente.pessoa', 
+            'avaliador.pessoa',
+            'horario'
+        ])->findOrFail($id);
+
+        $imc = $avaliacao->peso_cliente / $avaliacao->altura_cliente ** 2;
+
+        $resultado = Resultado::firstOrCreate(
+            ['avaliacao_fisica_id' => $avaliacao->id],
+            ['imc' => $imc]
+        );
+    
+        return view('resultados.show', compact('resultado', 'avaliacao'));
     }
 
     /**

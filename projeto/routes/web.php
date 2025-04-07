@@ -3,6 +3,7 @@
 use App\Http\Controllers\AvaliacaoFisicaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ResultadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::get('/', function () {
 
 Route::resource("clientes", ClienteController::class);
 Route::resource("avaliacaofisica", AvaliacaoFisicaController::class);
+Route::resource("resultados", ResultadoController::class);
