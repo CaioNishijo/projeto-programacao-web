@@ -9,7 +9,7 @@
   <body class="container mt-5">
     <h1>Novo Instrutor</h1>
     
-    <form method="post" action="{{ route('instrutores.store') }}">
+    <form method="post" action="/instrutores">
         @csrf
         
         <div class="mb-3">
