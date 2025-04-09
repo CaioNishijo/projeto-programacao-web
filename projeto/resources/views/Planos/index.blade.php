@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@include('welcome')
 @section('title', 'Planos')
 
 @section('content')

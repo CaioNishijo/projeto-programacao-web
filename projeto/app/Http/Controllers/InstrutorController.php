@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Avaliador;
+use App\Models\Pessoa;
 use Illuminate\Http\Request;
 
 class InstrutorController extends Controller
@@ -12,7 +14,8 @@ class InstrutorController extends Controller
      */
     public function index()
     {
-        return Avaliador::with('pessoa')->get();
+        $instrutores = Avaliador::with('pessoa')->get();
+        return view('instrutores.index', compact('instrutores'));
     }
 
     /**
@@ -39,7 +42,7 @@ class InstrutorController extends Controller
             'genero' => 'nullable|string',
         ]);
 
-        $pessoa = Pessoa::create($validated);
+        $pessoa = Pessoa::create($request);
 
         Avaliador::create([
             'pessoa_id' => $pessoa->id
@@ -53,7 +56,7 @@ class InstrutorController extends Controller
      */
     public function show($id)
     {
-        $instrutor = Instrutor::with('pessoa')->findOrFail($id);
+        $instrutor = Avaliador::with('pessoa')->findOrFail($id);
         return view('instrutores.show', compact('instrutor'));
     }
 
@@ -62,7 +65,7 @@ class InstrutorController extends Controller
      */
     public function edit($id)
     {
-        $instrutor = Instrutor::with('pessoa')->findOrFail($id);
+        $instrutor = Avaliador::with('pessoa')->findOrFail($id);
         return view('instrutores.edit', compact('instrutor'));
     }
 

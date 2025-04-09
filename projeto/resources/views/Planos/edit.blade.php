@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@include('welcome')
 
 @section('title', 'Editar Plano')
 

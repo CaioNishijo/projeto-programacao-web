@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@include('welcome')
 
 @section('title', 'Lista de Instrutores')
 
@@ -47,4 +47,4 @@
         </table>
     @endif
 </div>
-@endsection
+
