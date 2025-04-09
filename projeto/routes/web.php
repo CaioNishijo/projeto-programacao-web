@@ -31,7 +31,7 @@ Route::resource('planos', PlanoController::class);
 
 Route::resource('matriculas', MatriculaController::class);
 
-Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'formPagamento'])->name('matriculas.pagar');
+Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'efetuarPagamento'])->name('matriculas.pagar');
 
 Route::resource("avaliacaofisica", AvaliacaoFisicaController::class);
 Route::resource("resultados", ResultadoController::class);

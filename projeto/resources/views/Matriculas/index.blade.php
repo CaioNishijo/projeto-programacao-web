@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@include('layout')
 
-@section('content')
+@section('conteudo')
 <div class="container">
     <h1 class="mb-4">Assinaturas Realizadas</h1>
 
@@ -29,12 +29,12 @@
                 @foreach ($matriculas as $matricula)
                     <tr>
                         <td>{{ $matricula->id }}</td>
-                        <td>{{ $matricula->cliente->nome ?? 'N/A' }}</td>
-                        <td>{{ $matricula->plano->nome ?? 'N/A' }}</td>
+                        <td>{{ $matricula->cliente->pessoa->nome ?? 'N/A' }}</td>
+                        <td>{{ $matricula->plano->duracao ?? 'N/A' }}</td>
                         <td>{{ \Carbon\Carbon::parse($matricula->data_inicial)->format('d/m/Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($matricula->data_final)->format('d/m/Y') }}</td>
                         <td>
-                            @if ($matricula->status === 'ativa')
+                            @if ($matricula->status === 1)
                                 <span class="badge bg-success">Ativa</span>
                             @else
                                 <span class="badge bg-secondary">Inativa</span>
@@ -49,4 +49,3 @@
         </table>
     @endif
 </div>
-@endsection

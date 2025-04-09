@@ -1,3 +1,5 @@
+@include('layout')
+
 <div class="container">
     <h1 class="mb-4">Realizar Assinatura</h1>
 
@@ -20,7 +22,7 @@
             <select name="cliente_id" class="form-control" required>
                 <option value="">Selecione um cliente</option>
                 @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                    <option value="{{ $cliente->id }}">{{ $cliente->pessoa->nome }}</option>
                 @endforeach
             </select>
         </div>
@@ -30,7 +32,7 @@
             <select name="plano_id" class="form-control" required>
                 <option value="">Selecione um plano</option>
                 @foreach ($planos as $plano)
-                    <option value="{{ $plano->id }}">{{ $plano->nome }} (R$ {{ number_format($plano->preco, 2, ',', '.') }} - {{ $plano->duracao_dias }} dias)</option>
+                    <option value="{{ $plano->id }}">{{ $plano->nome }} (R$ {{ number_format($plano->preco, 2, ',', '.') }} - {{ $plano->duracao_dias }} mes)</option>
                 @endforeach
             </select>
         </div>
