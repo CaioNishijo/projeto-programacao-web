@@ -15,7 +15,7 @@ class Matricula extends Model
     protected $fillable = [
         'data_inicial',
         'data_final',
-        'ativa',
+        'status',
         'cliente_id',
         'plano_id',
         'data_pagamento',
