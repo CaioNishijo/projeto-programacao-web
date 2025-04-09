@@ -13,8 +13,13 @@
         @csrf
         
         <div class="mb-3">
-            <label for="nome_completo" class="form-label">Nome completo</label>
-            <input type="text" id="nome_completo" name="nome_completo" class="form-control" required>
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" id="nome" name="nome" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="sobrenome" class="form-label">Sobrenome</label>
+            <input type="text" id="sobrenome" name="sobrenome" class="form-control" required="">
         </div>
 
         <div class="mb-3">
@@ -38,8 +43,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="telefone" class="form-label">Celular</label>
-            <input type="text" id="telefone" name="telefone" class="form-control" required>
+            <label for="numero_celular" class="form-label">Celular</label>
+            <input type="text" id="numero_celular" name="numero_celular" class="form-control" required>
         </div>
 
         <div class="mb-3">

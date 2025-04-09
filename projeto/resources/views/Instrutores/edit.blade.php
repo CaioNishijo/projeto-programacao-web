@@ -14,8 +14,13 @@
         @method('PUT')
 
         <div class="mb-3">
-            <label for="nome_completo" class="form-label">Nome Completo</label>
-            <input type="text" name="nome_completo" id="nome_completo" class="form-control" required value="{{ $instrutor->pessoa->nome_completo }}">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" name="nome" id="nome" class="form-control" required value="{{ $instrutor->pessoa->nome }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="sobrenome" class="form-label">Sobrenome</label>
+            <input type="text" name="sobrenome" id="sobrenome" class="form-control" required value="{{ $instrutor->pessoa->sobrenome }}">
         </div>
 
         <div class="mb-3">
@@ -39,8 +44,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="telefone" class="form-label">Telefone</label>
-            <input type="text" name="telefone" id="telefone" class="form-control" required value="{{ $instrutor->pessoa->telefone }}">
+            <label for="numero_celular" class="form-label">Celular</label>
+            <input type="text" name="numero_celular" id="numero_celular" class="form-control" required value="{{ $instrutor->pessoa->numero_celular }}">
         </div>
 
         <div class="mb-3">

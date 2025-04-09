@@ -19,6 +19,7 @@
             <thead>
                 <tr>
                     <th>Nome</th>
+                    <th>Sobrenome</th>
                     <th>CPF</th>
                     <th>Email</th>
                     <th>Telefone</th>
@@ -28,18 +29,15 @@
             <tbody>
                 @foreach($instrutores as $instrutor)
                     <tr>
-                        <td>{{ $instrutor->pessoa->nome_completo }}</td>
+                        <td>{{ $instrutor->pessoa->nome }}</td>
+                        <td>{{ $instrutor->pessoa->sobrenome }}</td>
                         <td>{{ $instrutor->pessoa->cpf }}</td>
                         <td>{{ $instrutor->pessoa->email }}</td>
-                        <td>{{ $instrutor->pessoa->telefone }}</td>
+                        <td>{{ $instrutor->pessoa->numero_celular }}</td>
                         <td>
                             <a href="{{ route('instrutores.edit', $instrutor->id) }}" class="btn btn-warning btn-sm">Editar</a>
 
-                            <form action="{{ route('instrutores.destroy', $instrutor->id) }}" method="POST" style="display:inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')" class="btn btn-danger btn-sm">Excluir</button>
-                            </form>
+                            <a href="/instrutores/{{ $instrutor->id }}" class="btn btn-info">Consultar</a>
                         </td>
                     </tr>
                 @endforeach

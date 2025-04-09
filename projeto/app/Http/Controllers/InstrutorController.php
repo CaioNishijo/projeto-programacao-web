@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Avaliador;
 use App\Models\Pessoa;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class InstrutorController extends Controller
 {
@@ -31,22 +33,21 @@ class InstrutorController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'cpf' => 'required|string|unique:pessoas',
-            'rg' => 'nullable|string',
-            'data_nascimento' => 'nullable|date',
-            'email' => 'required|email|unique:pessoas',
-            'telefone' => 'nullable|string',
-            'endereco' => 'nullable|string',
-            'genero' => 'nullable|string',
-        ]);
-
-        $pessoa = Pessoa::create($request);
-
-        Avaliador::create([
-            'pessoa_id' => $pessoa->id
-        ]);
+        try{
+            $pessoa = Pessoa::create($request->all());
+            Avaliador::create([
+                'pessoa_id' => $pessoa->id
+            ]);
+            return redirect()->route('instrutores.index')
+                ->with('sucesso', 'Instrutor cadastrado com sucesso!');
+        } catch (Exception $e){
+            Log::error("Erro ao cadastrar instrutor: ". $e->getMessage(), [
+                'stack' => $e->getTraceAsString(),
+                'request' => $request->all()
+            ]);
+            return redirect()->route('instrutores.index')
+                ->with('erro' , 'Erro ao cadastrar cliente!');
+        }
 
         return redirect()->route('instrutores.index')->with('success', 'Instrutor cadastrado com sucesso!');
     }
@@ -90,7 +91,7 @@ class InstrutorController extends Controller
 
         $pessoa->update($validated);
 
-        return response()->json($avaliador->load('pessoa'));
+        return view('instrutores.index');
     }
 
     /**
@@ -98,10 +99,18 @@ class InstrutorController extends Controller
      */
     public function destroy($id)
     {
-        $avaliador = Avaliador::findOrFail($id);
-        $avaliador->pessoa->delete(); 
-        $avaliador->delete();
-
-        return response()->json(['message' => 'Instrutor deletado com sucesso']);
+        try{
+            $instrutor = Avaliador::with('pessoa')->findOrFail($id);
+            $instrutor->delete();
+            return redirect()->route('instrutores.index')
+                ->with('sucesso', 'Instrutor excluído com sucesso!');
+        } catch (Exception $e){
+            Log::error("Erro ao excluir o instrutor: ". $e->getMessage(), [
+                'stack' => $e->getTraceAsString(),
+                'cliente_id' => $id
+            ]);
+            return redirect()->route('instrutores.index')
+                ->with('erro', 'Erro ao excluir!');
+        }
     }
 }
