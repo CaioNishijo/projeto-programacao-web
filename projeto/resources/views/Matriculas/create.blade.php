@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 <div class="container">
     <h1 class="mb-4">Realizar Assinatura</h1>
 
@@ -47,4 +44,3 @@
         <a href="{{ route('matriculas.index') }}" class="btn btn-secondary">Voltar</a>
     </form>
 </div>
-@endsection

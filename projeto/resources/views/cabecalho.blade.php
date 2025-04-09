@@ -18,7 +18,7 @@
                         <a class="nav-link" href="/avaliacaofisica">Avaliações</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/pagamentos">Pagamentos</a>
+                        <a class="nav-link" href="/matriculas">Matrículas</a>
                     </li>
                 </ul>
                 
