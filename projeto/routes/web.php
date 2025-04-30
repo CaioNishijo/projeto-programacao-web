@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvaliacaoFisicaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
@@ -35,3 +36,14 @@ Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'efetuarPagame
 
 Route::resource("avaliacaofisica", AvaliacaoFisicaController::class);
 Route::resource("resultados", ResultadoController::class);
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth')->group(function() {
+    Route::get('/dashboard', function(){
+        return view('dashboard');
+    });
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
