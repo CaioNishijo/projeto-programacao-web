@@ -21,7 +21,14 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            $user = Auth::user();
+            if($user->role === 'ADM'){
+                return redirect()->intended('/dashboard-adm');
+            } else if($user->role === 'CLI'){
+                return redirect()->intended('/dashboard-cli');
+            }
+            Auth::logout();
+            return redirect('/login')->withErrors(['access' => 'Nível de usuário inválido! Entre em contato com o administrador.']);
         }
 
         return back()->withErrors([
