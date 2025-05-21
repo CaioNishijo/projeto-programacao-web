@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvaliacaoFisicaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
@@ -7,6 +8,8 @@ use App\Http\Controllers\InstrutorController;
 use App\Http\Controllers\PlanoController;
 use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\ResultadoController;
+use App\Http\Middleware\RoleAdmMiddleware;
+use App\Http\Middleware\RoleCliMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +26,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource("clientes", ClienteController::class);
-
-Route::resource('instrutores', InstrutorController::class);
-
-Route::resource('planos', PlanoController::class);
-
-Route::resource('matriculas', MatriculaController::class);
-
 Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'efetuarPagamento'])->name('matriculas.pagar');
 
-Route::resource("avaliacaofisica", AvaliacaoFisicaController::class);
-Route::resource("resultados", ResultadoController::class);
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth')->group(function() {
+    Route::middleware([RoleAdmMiddleware::class])->group(
+        function (){
+            Route::get('/dashboard-adm', function(){
+                return view('dashboard-adm');
+            });
+
+            Route::resource("clientes", ClienteController::class);
+            Route::resource('instrutores', InstrutorController::class);
+            Route::resource('planos', PlanoController::class);
+            Route::resource('matriculas', MatriculaController::class);
+            Route::resource("avaliacaofisica", AvaliacaoFisicaController::class);
+    Route::resource("resultados", ResultadoController::class);
+        }
+    );
+
+    Route::middleware([RoleCliMiddleware::class])->group(function(){
+        Route::get('/dashboard-cli', function(){
+            return view('dashboard-cli');
+        });
+    });
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
