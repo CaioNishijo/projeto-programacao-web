@@ -8,6 +8,7 @@ use App\Http\Controllers\InstrutorController;
 use App\Http\Controllers\PlanoController;
 use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\ResultadoController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleAdmMiddleware;
 use App\Http\Middleware\RoleCliMiddleware;
 
@@ -32,6 +33,9 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth')->group(function() {
+    Route::get('/user', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/user', [UserController::class, 'update']);
+
     Route::middleware([RoleAdmMiddleware::class])->group(
         function (){
             Route::get('/dashboard-adm', function(){
