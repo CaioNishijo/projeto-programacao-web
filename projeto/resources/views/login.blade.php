@@ -40,7 +40,7 @@
                             </div>
                             <hr>
                             <div class="text-center">
-                                <p class="mb-0">Não tem uma conta? <a href="#" class="text-decoration-none">Cadastre-se</a></p>
+                                <p class="mb-0">Não tem uma conta? <a href="/users/create" class="text-decoration-none">Cadastre-se</a></p>
                             </div>
                         </form>
                     </div>

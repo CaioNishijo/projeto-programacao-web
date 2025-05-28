@@ -25,16 +25,24 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try{
-            $dados = $request->all();
-            $dados['password'] = Hash::make($dados['password']);
-            User::create($dados);
+            $validated = $request->validate([
+                'name' => 'required|max:255',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:8'
+            ]);
+    
+            User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password'])
+            ]);
             return redirect('/login');
         }catch(Exception $e){
-            Log::erorr("Erro ao criar usuário: ".$e->getMessage(), [
+            Log::error("Erro ao criar usuário: ".$e->getMessage(), [
                 'stack'=>$e->getTraceAsString(),
                 'request'=>$request->all()
             ]);
-            return redirect('/cadastro')->with('erro', 'Erro ao cadastrar');
+            return redirect('/users/create')->with('erro', 'Erro ao cadastrar');
         }
     }
 
@@ -60,7 +68,7 @@ class UserController extends Controller
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
-            $user->save();
+            // $user->save();
             Auth::logout();
             return redirect('/login');
         } catch(Exception $e){

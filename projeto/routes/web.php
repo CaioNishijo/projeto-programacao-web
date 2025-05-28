@@ -32,6 +32,8 @@ Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'efetuarPagame
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::resource("users", UserController::class);
+
 Route::middleware('auth')->group(function() {
     Route::get('/user', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/user', [UserController::class, 'update']);
@@ -47,7 +49,7 @@ Route::middleware('auth')->group(function() {
             Route::resource('planos', PlanoController::class);
             Route::resource('matriculas', MatriculaController::class);
             Route::resource("avaliacaofisica", AvaliacaoFisicaController::class);
-    Route::resource("resultados", ResultadoController::class);
+            Route::resource("resultados", ResultadoController::class);
         }
     );
 
