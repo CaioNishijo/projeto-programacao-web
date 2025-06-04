@@ -24,7 +24,7 @@ use App\Http\Middleware\RoleCliMiddleware;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/login');
 });
 
 Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'efetuarPagamento'])->name('matriculas.pagar');

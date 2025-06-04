@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
-use App\Models\Pessoa;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use PgSql\Lob;
 
 class ClienteController extends Controller
 {
@@ -16,7 +15,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::with('pessoa')->get();
+        $clientes = User::where('role', 'CLI')->get();
         return view('clientes.index', compact('clientes'));
     }
 
@@ -25,7 +24,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view("clientes.create");
+        return view("users.create");
     }
 
     /**
@@ -33,22 +32,7 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            $pessoa = Pessoa::create($request->all());
-            Cliente::create([
-                'pessoa_id' => $pessoa->id,
-                'status_atividade' => false,
-            ]);
-            return redirect()->route('clientes.index')
-                ->with('sucesso', 'Cliente cadastrado com sucesso!');
-        } catch (Exception $e){
-            Log::error("Erro ao cadastrar cliente: ". $e->getMessage(), [
-                'stack' => $e->getTraceAsString(),
-                'request' => $request->all()
-            ]);
-            return redirect()->route('clientes.index')
-                ->with('erro' , 'Erro ao cadastrar cliente!');
-        }
+        
     }
 
     /**
@@ -56,7 +40,7 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-        $cliente = Cliente::with('pessoa')->findOrFail($id);
+        $cliente = User::where('role', 'CLI')->findOrFail($id);
         return view("clientes.show", compact('cliente'));
     }
 
@@ -65,7 +49,7 @@ class ClienteController extends Controller
      */
     public function edit(string $id)
     {
-        $cliente = Cliente::with('pessoa')->findOrFail($id);
+        $cliente = User::where('role', 'CLI')->findOrFail($id);
         return view("clientes.edit", compact('cliente'));
     }
 
@@ -75,20 +59,14 @@ class ClienteController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $cliente = Cliente::with('pessoa')->findOrFail($id);
+            $cliente = User::where('role', 'CLI')->findOrFail($id);
             
             $cliente->update([
                 'status_atividade' => $request->status_atividade ?? false,
             ]);
             
-            $cliente->pessoa->update([
-                'nome' => $request->nome,
-                'sobrenome' => $request->sobrenome,
-                'genero' => $request->genero,
-                'cpf' => $request->cpf,
-                'data_nascimento' => $request->data_nascimento,
-                'endereco' => $request->endereco,
-                'numero_celular' => $request->numero_celular,
+            $cliente->update([
+                'name' => $request->name,
                 'email' => $request->email,
             ]);
             
@@ -113,7 +91,7 @@ class ClienteController extends Controller
     public function destroy(string $id)
     {
         try{
-            $cliente = Cliente::with('pessoa')->findOrFail($id);
+            $cliente = User::where('role', 'CLI')->findOrFail($id);
             $cliente->delete();
             return redirect()->route('clientes.index')
                 ->with('sucesso', 'Cliente excluído com sucesso!');

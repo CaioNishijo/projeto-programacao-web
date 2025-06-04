@@ -6,6 +6,7 @@ use App\Models\AvaliacaoFisica;
 use App\Models\Avaliador;
 use App\Models\Cliente;
 use App\Models\Horario;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -33,7 +34,7 @@ class AvaliacaoFisicaController extends Controller
      */
     public function create()
     {
-        $clientes = Cliente::with('pessoa')->get();
+        $clientes = User::where('role', 'CLI')->get();
         $horarios = Horario::with('avaliador.pessoa')->get();
         return view('avaliacaofisica.create', compact('clientes', 'horarios'));
     }
@@ -70,7 +71,7 @@ class AvaliacaoFisicaController extends Controller
     public function show(string $id)
     {
         $avaliacao = AvaliacaoFisica::with([
-            'cliente.pessoa', 
+            'cliente', 
             'avaliador.pessoa',
             'horario'
         ])->findOrFail($id);
@@ -84,12 +85,12 @@ class AvaliacaoFisicaController extends Controller
     public function edit(string $id)
     {
         $avaliacao = AvaliacaoFisica::with([
-            'cliente.pessoa', 
+            'cliente', 
             'avaliador.pessoa',
             'horario'
         ])->findOrFail($id);
         
-        $clientes = Cliente::with('pessoa')->get();
+        $clientes = User::where('role', 'CLI')->get();
         $horarios = Horario::with('avaliador.pessoa')->get();
         
         return view('avaliacaofisica.edit', compact('avaliacao', 'clientes', 'horarios'));
