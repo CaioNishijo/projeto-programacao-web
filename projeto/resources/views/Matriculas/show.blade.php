@@ -9,7 +9,7 @@
             Assinatura #{{ $matricula->id }}
         </div>
         <div class="card-body">
-            <p><strong>Cliente:</strong> {{ $matricula->cliente->pessoa->nome ?? 'N/A' }}</p>
+            <p><strong>Cliente:</strong> {{ $matricula->cliente->name ?? 'N/A' }}</p>
             <p><strong>Plano:</strong> {{ $matricula->plano->duracao ?? 'N/A' }}</p>
             <p><strong>Data de Início:</strong> {{ \Carbon\Carbon::parse($matricula->data_inicial)->format('d/m/Y') }}</p>
             <p><strong>Data de Fim:</strong> {{ \Carbon\Carbon::parse($matricula->data_final)->format('d/m/Y') }}</p>

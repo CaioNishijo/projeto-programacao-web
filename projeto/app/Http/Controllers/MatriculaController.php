@@ -7,6 +7,7 @@ use App\Models\Matricula;
 use App\Models\Cliente;
 use App\Models\Pagamento;
 use App\Models\Planos;
+use App\Models\User;
 use Carbon\Carbon;
 
 class MatriculaController extends Controller
@@ -14,14 +15,14 @@ class MatriculaController extends Controller
 
     public function index()
     {
-        $matriculas = Matricula::with('cliente.pessoa', 'plano')->get();
+        $matriculas = Matricula::with('cliente', 'plano')->get();
         return view('matriculas.index', compact('matriculas'));
     }
 
     
     public function create()
     {
-        $clientes = Cliente::with('pessoa')->get();
+        $clientes = User::where('role', 'CLI')->get();
         $planos = Planos::all();
         return view('matriculas.create', compact('clientes', 'planos'));
     }
@@ -30,7 +31,7 @@ class MatriculaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'cliente_id' => 'required|exists:clientes,id',
+            'cliente_id' => 'required|exists:users,id',
             'plano_id' => 'required|exists:planos,id',
             'data_inicial' => 'required|date',
         ]);
@@ -45,7 +46,7 @@ class MatriculaController extends Controller
             'plano_id'     => $request->plano_id,
             'data_inicial' => $dataInicial,
             'data_final'   => $dataFinal,
-            'status' => 0
+            'status_pagamento' => 0
         ]);
 
         return redirect()->route('matriculas.index')->with('success', 'Assinatura realizada com sucesso!');
@@ -54,7 +55,7 @@ class MatriculaController extends Controller
     
     public function show($id)
     {
-        $matricula = Matricula::with('cliente.pessoa', 'plano')->findOrFail($id);
+        $matricula = Matricula::with('cliente', 'plano')->findOrFail($id);
         return view('matriculas.show', compact('matricula'));
     }
     public function formPagamento($id)
@@ -75,7 +76,7 @@ class MatriculaController extends Controller
         ]);
 
         $matricula->update([
-            'status' => 1
+            'status_pagamento' => 1
         ]);
 
         return redirect()->route('matriculas.show', $matricula->id)->with('success', 'Pagamento registrado com sucesso!');
