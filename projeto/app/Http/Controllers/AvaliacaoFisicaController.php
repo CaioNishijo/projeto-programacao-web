@@ -19,7 +19,7 @@ class AvaliacaoFisicaController extends Controller
     public function index()
     {
         $avaliacoes = AvaliacaoFisica::with([
-            'cliente.pessoa', 
+            'cliente', 
             'avaliador.pessoa',
             'horario'
         ])
@@ -137,7 +137,7 @@ class AvaliacaoFisicaController extends Controller
     {
         try{
             $avaliacao = AvaliacaoFisica::with([
-                'cliente.pessoa', 
+                'cliente', 
                 'avaliador.pessoa',
                 'horario'
             ])->findOrFail($id);

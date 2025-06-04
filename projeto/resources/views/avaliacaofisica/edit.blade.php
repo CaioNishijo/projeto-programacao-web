@@ -20,7 +20,7 @@
                 <label for="cliente_id" class="form-label">Cliente</label>
                 <select id="cliente_id" name="cliente_id" class="form-select" required="">
                     @foreach($clientes as $cliente)
-                        <option value="{{$cliente->id}}" {{ $avaliacao->cliente_id == $cliente->id ? "selected" : "" }} >{{$cliente->pessoa->nome}}</option>
+                        <option value="{{$cliente->id}}" {{ $avaliacao->cliente_id == $cliente->id ? "selected" : "" }} >{{$cliente->name}}</option>
                     @endforeach
                 </select>
             </div>

@@ -38,7 +38,7 @@
                     <tr>
                         <td>{{ $avaliacao->id }}</td>
                         <td>{{ $avaliacao->data_marcada }}</td>
-                        <td>{{ $avaliacao->cliente->pessoa->nome }}</td>
+                        <td>{{ $avaliacao->cliente->name }}</td>
                         <td>{{ $avaliacao->avaliador->pessoa->nome }}</td>
                         <td>{{ $avaliacao->horario->horario }}</td>
                         <td>{{ $avaliacao->altura_cliente }}m</td>
