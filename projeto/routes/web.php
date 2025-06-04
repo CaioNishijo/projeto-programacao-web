@@ -8,6 +8,7 @@ use App\Http\Controllers\InstrutorController;
 use App\Http\Controllers\PlanoController;
 use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\ResultadoController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleAdmMiddleware;
 use App\Http\Middleware\RoleCliMiddleware;
 
@@ -23,7 +24,7 @@ use App\Http\Middleware\RoleCliMiddleware;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/login');
 });
 
 Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'efetuarPagamento'])->name('matriculas.pagar');
@@ -31,7 +32,12 @@ Route::get('/matriculas/{id}/pagar', [MatriculaController::class, 'efetuarPagame
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::resource("users", UserController::class);
+
 Route::middleware('auth')->group(function() {
+    Route::get('/user', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/user', [UserController::class, 'update']);
+
     Route::middleware([RoleAdmMiddleware::class])->group(
         function (){
             Route::get('/dashboard-adm', function(){
@@ -43,7 +49,7 @@ Route::middleware('auth')->group(function() {
             Route::resource('planos', PlanoController::class);
             Route::resource('matriculas', MatriculaController::class);
             Route::resource("avaliacaofisica", AvaliacaoFisicaController::class);
-    Route::resource("resultados", ResultadoController::class);
+            Route::resource("resultados", ResultadoController::class);
         }
     );
 

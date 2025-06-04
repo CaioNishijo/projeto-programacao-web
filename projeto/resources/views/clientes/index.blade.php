@@ -15,7 +15,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>nome</th><th>sobrenome</th><th>genero</th><th>cpf</th><th>data_nascimento</th><th>endereco</th><th>numero_celular</th><th>email</th><th>status_atividade</th>
+                                    <th>nome</th><th>email</th><th>status_atividade</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
@@ -23,8 +23,8 @@
                             <tbody>
                                 
                                     <tr>
-                                        <td>{{ $cliente->pessoa->id }}</td>
-                                        <td>{{ $cliente->pessoa->nome }}</td><td>{{ $cliente->pessoa->sobrenome }}</td><td>{{ $cliente->pessoa->genero }}</td><td>{{ $cliente->pessoa->cpf }}</td><td>{{ $cliente->pessoa->data_nascimento }}</td><td>{{ $cliente->pessoa->endereco }}</td><td>{{ $cliente->pessoa->numero_celular }}</td><td>{{ $cliente->pessoa->email }}</td><td>{{ $cliente->pessoa->status_atividade }}</td>
+                                        <td>{{ $cliente->id }}</td>
+                                        <td>{{ $cliente->name }}</td><td>{{ $cliente->email }}</td><td>{{ $cliente->status_atividade }}</td>
                                         <td>
                                             <a href="/clientes/{{ $cliente->id }}/edit" class="btn btn-warning">Editar</a>
                                             <a href="/clientes/{{ $cliente->id }}" class="btn btn-info">Consultar</a>

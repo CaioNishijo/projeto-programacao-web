@@ -15,17 +15,18 @@
                         <h4><i class="bi bi-box-arrow-in-right"></i> Login</h4>
                     </div>
                     <div class="card-body login-body">
-                        <form>
+                        <form method="post" action="/login">
+                            @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">E-mail</label>
                                 <div class="input-group">
-                                    <input type="email" class="form-control" id="email" placeholder="Digite seu e-mail" required>
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Digite seu e-mail" required>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Senha</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
+                                    <input type="password" name="password" class="form-control" id="password" placeholder="Digite sua senha" required>
                                 </div>
                             </div>
                             <div class="mb-3 form-check">
@@ -40,7 +41,7 @@
                             </div>
                             <hr>
                             <div class="text-center">
-                                <p class="mb-0">Não tem uma conta? <a href="#" class="text-decoration-none">Cadastre-se</a></p>
+                                <p class="mb-0">Não tem uma conta? <a href="/users/create" class="text-decoration-none">Cadastre-se</a></p>
                             </div>
                         </form>
                     </div>

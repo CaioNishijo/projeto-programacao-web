@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Agendar avaliação física</h1>
         <form method="post" action="/avaliacaofisica">
-            @CSRF
+            @csrf
             <div class="mb-3">
                 <label for="data_marcada" class="form-label">Data para avaliação</label>
                 <input type="date" id="data_marcada" name="data_marcada" class="form-control" required="">
@@ -19,7 +19,7 @@
                 <label for="cliente_id" class="form-label">Cliente</label>
                 <select id="cliente_id" name="cliente_id" class="form-select" required="">
                     @foreach($clientes as $cliente)
-                        <option value="{{$cliente->id}}">{{$cliente->pessoa->nome}}</option>
+                        <option value="{{$cliente->id}}">{{$cliente->name}}</option>
                     @endforeach
                 </select>
             </div>

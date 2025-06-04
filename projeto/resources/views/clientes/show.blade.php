@@ -20,51 +20,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="nome" class="form-label">Nome:</label>
-                        <input type="text" id="nome" value="{{ $cliente->pessoa->nome }}" class="form-control" disabled>
+                        <label for="name" class="form-label">Nome:</label>
+                        <input type="text" id="name" value="{{ $cliente->name }}" class="form-control" disabled>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="sobrenome" class="form-label">Sobrenome:</label>
-                        <input type="text" id="sobrenome" value="{{ $cliente->pessoa->sobrenome }}" class="form-control" disabled>
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" id="email" value="{{ $cliente->email }}" class="form-control" disabled>
                     </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="cpf" class="form-label">CPF:</label>
-                        <input type="text" id="cpf" value="{{ $cliente->pessoa->cpf }}" class="form-control" disabled>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="data_nascimento" class="form-label">Data de Nascimento:</label>
-                        <input type="date" id="data_nascimento" value="{{ $cliente->pessoa->data_nascimento }}" class="form-control" disabled>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="genero" class="form-label">Gênero:</label>
-                        <input type="text" id="genero" value="{{ $cliente->pessoa->genero }}" class="form-control" disabled>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-4">
-            <div class="card-header bg-dark text-white">
-                <h5>Informações de Contato</h5>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="email" class="form-label">E-mail:</label>
-                        <input type="email" id="email" value="{{ $cliente->pessoa->email }}" class="form-control" disabled>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="numero_celular" class="form-label">Celular:</label>
-                        <input type="tel" id="numero_celular" value="{{ $cliente->pessoa->numero_celular }}" class="form-control" disabled>
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="endereco" class="form-label">Endereço:</label>
-                    <input type="text" id="endereco" value="{{ $cliente->pessoa->endereco }}" class="form-control" disabled>
                 </div>
             </div>
         </div>

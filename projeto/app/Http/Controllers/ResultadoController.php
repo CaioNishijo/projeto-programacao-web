@@ -38,7 +38,7 @@ class ResultadoController extends Controller
     public function show(string $id)
     {
         $avaliacao = AvaliacaoFisica::with([
-            'cliente.pessoa', 
+            'cliente', 
             'avaliador.pessoa',
             'horario'
         ])->findOrFail($id);

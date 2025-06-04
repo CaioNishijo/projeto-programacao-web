@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="cliente" class="form-label">Cliente:</label>
-                        <input type="text" id="cliente" value="{{ $avaliacao->cliente->pessoa->nome }}" class="form-control" disabled>
+                        <input type="text" id="cliente" value="{{ $avaliacao->cliente->name }}" class="form-control" disabled>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="avaliador" class="form-label">Avaliador:</label>
