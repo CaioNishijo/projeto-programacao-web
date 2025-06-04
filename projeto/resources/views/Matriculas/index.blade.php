@@ -29,7 +29,7 @@
                 @foreach ($matriculas as $matricula)
                     <tr>
                         <td>{{ $matricula->id }}</td>
-                        <td>{{ $matricula->cliente->pessoa->nome ?? 'N/A' }}</td>
+                        <td>{{ $matricula->cliente->name ?? 'N/A' }}</td>
                         <td>{{ $matricula->plano->duracao ?? 'N/A' }}</td>
                         <td>{{ \Carbon\Carbon::parse($matricula->data_inicial)->format('d/m/Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($matricula->data_final)->format('d/m/Y') }}</td>

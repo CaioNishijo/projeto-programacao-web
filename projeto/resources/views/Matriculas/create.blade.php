@@ -22,7 +22,7 @@
             <select name="cliente_id" class="form-control" required>
                 <option value="">Selecione um cliente</option>
                 @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}">{{ $cliente->pessoa->nome }}</option>
+                    <option value="{{ $cliente->id }}">{{ $cliente->name }}</option>
                 @endforeach
             </select>
         </div>
