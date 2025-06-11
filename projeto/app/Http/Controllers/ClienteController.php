@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -15,8 +16,17 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = User::where('role', 'CLI')->get();
-        return view('clientes.index', compact('clientes'));
+        $user = Auth::user();
+
+        if ($user->role === 'ADM') {
+            $clientes = User::where('role', 'CLI')->get();
+            return view('dashboard-adm', compact('clientes'));
+        } elseif ($user->role === 'CLI') {
+            $cliente = $user;
+            return view('dashboard-cli', compact('cliente'));
+        } else {
+            abort(403, 'Acesso não autorizado');
+        }
     }
 
     /**
