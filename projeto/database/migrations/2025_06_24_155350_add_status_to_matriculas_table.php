@@ -9,14 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
-{
-    Schema::table('matriculas', function (Blueprint $table) {
-        $table->date('data_pagamento')->nullable();
-       $table->boolean('status_pagamento')->default(0);
-
+    public function up(): void
+    {
+        Schema::table('matriculas', function (Blueprint $table) {
+        $table->boolean('status')->default(0);
     });
-}
+    }
 
     /**
      * Reverse the migrations.

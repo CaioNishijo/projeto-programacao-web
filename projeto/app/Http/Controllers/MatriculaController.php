@@ -64,21 +64,23 @@ class MatriculaController extends Controller
         return view('matriculas.pagar', compact('matricula'));
     }
 
-    public function efetuarPagamento(Request $request, $id)
-    {
-        $matricula = Matricula::with('plano')->findOrFail($id);
+   public function efetuarPagamento(Request $request, $id)
+{
+    $matricula = Matricula::with('plano')->findOrFail($id);
 
-        Pagamento::create([
-            'data_pagamento' => now(),
-            'status_pagamento' => 1,
-            'cliente_id' => $matricula->cliente_id,
-            'valor' => $matricula->plano->preco
-        ]);
+    Pagamento::create([
+        'data_pagamento' => now(),
+        'status_pagamento' => 1,
+        'cliente_id' => $matricula->cliente_id,
+        'valor' => $matricula->plano->preco ?? 0
+    ]);
 
-        $matricula->update([
-            'status_pagamento' => 1
-        ]);
+    $matricula->update([
+        'status_pagamento' => 1,
+        'status' => 1 
+    ]);
 
-        return redirect()->route('matriculas.show', $matricula->id)->with('success', 'Pagamento registrado com sucesso!');
-    }
+    return redirect()->route('matriculas.show', $matricula->id)
+        ->with('success', 'Pagamento registrado e matrícula ativada com sucesso!');
+}
 }

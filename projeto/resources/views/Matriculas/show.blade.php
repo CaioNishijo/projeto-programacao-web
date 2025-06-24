@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <p><strong>Cliente:</strong> {{ $matricula->cliente->name ?? 'N/A' }}</p>
-            <p><strong>Plano:</strong> {{ $matricula->plano->duracao ?? 'N/A' }}</p>
+            <p><strong>Plano:</strong> {{ $matricula->plano->nome ?? 'N/A' }}</p>
             <p><strong>Data de Início:</strong> {{ \Carbon\Carbon::parse($matricula->data_inicial)->format('d/m/Y') }}</p>
             <p><strong>Data de Fim:</strong> {{ \Carbon\Carbon::parse($matricula->data_final)->format('d/m/Y') }}</p>
             <p><strong>Status:</strong> 
@@ -23,25 +23,20 @@
         </div>
     </div>
 
-    <a href="{{ route('matriculas.index') }}" class="btn btn-secondary mt-3">Voltar</a>
-</div>
-
-@section('content')
-<div class="container">
-
-    <h4>Informações de Pagamento</h4>
+    <h4 class="mt-4">Informações de Pagamento</h4>
     <p><strong>Status do Pagamento:</strong> 
-        @if ($matricula->status === 1)
+        @if ($matricula->status_pagamento === 1)
             <span class="badge bg-success">Pago</span>
         @else
             <span class="badge bg-secondary">Pendente</span>
-       @endif
+        @endif
     </p>
 
-    @if($matricula->data_pagamento)
-        <p><strong>Data do Pagamento:</strong> {{ \Carbon\Carbon::parse($matricula->data_pagamento)->format('d/m/Y') }}</p>
-    @else
-        <a href="{{ route('matriculas.pagar', $matricula->id) }}" class="btn btn-primary">Efetuar Pagamento</a>
+    @if($matricula->status_pagamento === 0)
+        <form action="{{ route('matriculas.pagar', $matricula->id) }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-primary">Efetuar Pagamento</button>
+        </form>
     @endif
 
     <a href="{{ route('matriculas.index') }}" class="btn btn-secondary mt-3">Voltar</a>

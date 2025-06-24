@@ -70,10 +70,10 @@
         </div>
 
         <div class="d-flex justify-content-between">
-            <p class="lead">Deseja excluir este cliente?</p>
+            <p class="lead">Deseja excluir este Instrutor?</p>
             <div>
                 <a href="/clientes" class="btn btn-secondary me-2">Cancelar</a>
-                <button type="submit" class="btn btn-danger">Excluir Cliente</button>
+                <button type="submit" class="btn btn-danger">Excluir Instrutor</button>
             </div>
         </div>
     </form>

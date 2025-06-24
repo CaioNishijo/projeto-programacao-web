@@ -27,8 +27,8 @@ class Matricula extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function plano() 
-    {
-        return $this->belongsTo(Planos::class);
-    }
+   public function plano()
+{
+    return $this->belongsTo(Planos::class, 'plano_id');
+}
 }
